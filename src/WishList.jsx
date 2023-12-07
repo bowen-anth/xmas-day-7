@@ -1,13 +1,23 @@
 import React from "react"
+import ReactDOM from "react-dom"
 
 export default function WishList() {
-    const [stateList, setStateList] = React.useState({
-        items: [],
-        item: "",
-        price: "",
-        link: ""
-    })
+    const [stateList, setStateList] = React.useState(() => {
+        const storedState = localStorage.getItem("wishListState");
+        return storedState ? JSON.parse(storedState) : {
+            items: [],
+            item: "",
+            price: "",
+            link: "",
+        };
+    });
+
+    React.useEffect(() => {
+        localStorage.setItem("wishListState", JSON.stringify(stateList));
+    }, [stateList]);
+
     console.log(stateList)
+    
     function add() {
          event.preventDefault()
         setStateList(prevState => {

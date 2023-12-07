@@ -2,55 +2,92 @@ import React from "react"
 
 export default function WishList() {
     const [stateList, setStateList] = React.useState({
+        items: [],
         item: "",
-        price: null,
+        price: "",
         link: ""
     })
-
+    console.log(stateList)
     function add() {
+         event.preventDefault()
+        setStateList(prevState => {
+            const newItem = {
+                item: prevState.item,
+                price: prevState.price,
+                link: prevState.link
+            };
 
+            return {
+                ...prevState,
+                items: [...prevState.items, newItem],
+                item: "",
+                price: "",
+                link: ""
+            };
+        });
     }
 
-    function remove() {
+    function remove(index) {
+        setStateList(prevState => {
+            const updatedItems = prevState.items.filter((item, i) => i !== index);
 
+            return {
+                ...prevState,
+                items: updatedItems,
+            };
+        });
     }
 
     function handleChange(event) {
         const {name, value} = event.target
-        setStateList(prevList => ({
-            ...prevList,
+        setStateList(stateList => ({
+            ...stateList,
             [name]: value
         }))
     }
 
     return (
         <>
-            <h1>Wish List</h1>
-                <div>
-                    <input 
-                    type="text" 
-                    placeholder="item"
-                    name="item"
-                    value={stateList.item}
-                    onChange={handleChange}
-                    />
-                    <input type="text" 
-                    placeholder="price"
-                    name="price"
-                    value={stateList.price}
-                    onChange={handleChange}
-                    />
-                    <input type="text" 
-                    placeholder="link"
-                    name="link"
-                    value={stateList.link}
-                    onChange={handleChange}
-                    />
-                </div>
-                <div>
-                    <button className="form-button" onClick={add}>Add Item</button>
-                    <button className="form-button" onClick={remove}>Delete Item</button>
-                </div>
+            <div className="container">
+                <h1>Wish List</h1>
+                <form>
+                        <input 
+                        type="text" 
+                        placeholder="item"
+                        name="item"
+                        value={stateList.item}
+                        onChange={handleChange}
+                        />
+                        <input type="number"
+                        min="1"
+                        step="any"
+                        placeholder="price"
+                        name="price"
+                        value={stateList.price}
+                        onChange={handleChange}
+                        />
+                        <input type="text" 
+                        placeholder="link"
+                        name="link"
+                        value={stateList.link}
+                        onChange={handleChange}
+                        />
+                    <div>
+                        <button className="form-button" onClick={add}>Add Item</button>
+                    </div>
+                    </form>
+                    <ul>
+                    {stateList.items.map((item, index) => (
+                        <li key={index}>
+                            {item.item} - ${item.price} - {item.link}
+                        <button
+                            className="delete-btn" 
+                            onClick={() => remove(index)}>Delete
+                        </button>
+                        </li>
+                    ))}
+                </ul>
+            </div>
         </>
     )
 }

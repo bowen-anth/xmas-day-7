@@ -1,4 +1,4 @@
-Christmas wish list in React. Saving state to local storage. For Day 7 of Scrimba's #JavaScriptmas.
+<h1>Christmas wish list in React. Saving state to local storage. For Day 7 of Scrimba's #JavaScriptmas.</h1>
 
 <img src="./src/xmas-day-7.gif" alt="gif demo of site" width="auto" height="auto" />
 

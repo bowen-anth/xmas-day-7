@@ -25,3 +25,8 @@ input {
 .form-button {
   margin-top: 2rem;
 }
+
+li {
+  display: flex;
+  justify-content: space-between;
+}

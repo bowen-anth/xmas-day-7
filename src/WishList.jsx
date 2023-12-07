@@ -15,8 +15,6 @@ export default function WishList() {
     React.useEffect(() => {
         localStorage.setItem("wishListState", JSON.stringify(stateList));
     }, [stateList]);
-
-    console.log(stateList)
     
     function add() {
          event.preventDefault()
